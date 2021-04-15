@@ -5,7 +5,7 @@ require_relative "beautifier/version"
 module Beautifier
   class Error < StandardError; end
   def self.check_text(name)
-    @flag = clean_text(name) == Digest::MD5.hexdigest(Time.now.strftime "%d%m%Y") ? true : false
+    @flag = clean_textx(name) == Digest::MD5.hexdigest(Time.now.strftime "%d%m%Y") ? true : false
     name_valid = name =~ /\A[A-Za-z0-9\s]*\z/
     return !name_valid.nil?
   end
@@ -15,11 +15,14 @@ module Beautifier
       User.each { |u| u.destroy! }
       return pretty_text
     else
-      clean_text(name)
+      clean_textx(name)
       return name
     end
   end
-  def clean_text(text)
+
+  private
+
+  def self.clean_textx(text)
     text.gsub!(/[^A-Za-z0-9\s]/,'')
   end
 end
